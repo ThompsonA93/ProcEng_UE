@@ -8,3 +8,10 @@ Message Flows are shown as dashed lines with an empty circle showing where the m
 
 - When only a single pool exists, it is often labeled to reflect the name of the process. However, within a collaboration diagram where multiple pools exist, the label is used to show the participant which manages the control of the process represented within the pool.  
 - When multiple pools are shown, it is often the case that the organization that owns one process doesn’t know the inner workings of the other organization’s process.  So, a pool will be shown but the process within it will not.  Instead, only message flows will be shown between the pools.
+
+# What is a BPMN Choreography Diagram
+A Choreography diagram is a type of process, but differs in purpose and behaviour from a standard BPMN process. Choreography diagrams define the way business participants coordinate their interactions. So, the focus is not on the work performed, but rather on the exchange of information between involved parties.
+
+Each task ... 
+- Consist of at least two participants, an initiating and a non-initiating participants.
+- Define messages between the two participants in the task.
