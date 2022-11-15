@@ -15,3 +15,10 @@ A Choreography diagram is a type of process, but differs in purpose and behaviou
 Each task ... 
 - Consist of at least two participants, an initiating and a non-initiating participants.
 - Define messages between the two participants in the task.
+
+
+# Notes:
+- Use Camunda modeler 7
+- XOR Gates can have a text explaining the condition and the edges can be labels with the conditions case Yes/No/... 
+- Documents linked to the task
+- Dataobject: Form for specific instance; Datastore: Shared among instances
