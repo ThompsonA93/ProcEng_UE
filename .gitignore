@@ -1,1 +1,15 @@
 *.bak_*
+
+# TeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+
+# Other
+2018_Book_.pdf
