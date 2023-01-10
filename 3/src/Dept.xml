@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ep_export>
+<head>
+<content cluster="department_cluster" built="18-12-2022 10:00"/>
+<description>
+</description>
+<server name="epdemo" address="LAPTOP-V9QI6TRS" version="10.0.33564"/>
+<customer client="" exported_from="Larissa Krainer"/>
+</head>
+<body>
+<com.dec.avw.core.Dept toString="Finance" id="finance" name="Finance" description="Demo application OrgUnit" orgType="4" active="1" ep_export_log="true" />
+<com.dec.avw.core.Dept toString="Helpdesk" id="helpdesk" name="Helpdesk" description="Helpdesk for PE project" orgType="4" active="1" ep_export_log="true" />
+<com.dec.avw.core.Dept toString="Human Resources" id="hr" name="Human Resources" description="Human resources department, part of demo organization structure" orgType="4" active="1" ep_export_log="true" />
+<com.dec.avw.core.Dept toString="Junior Sales Department" id="juniorSales" name="Junior Sales Department" orgType="4" active="1" ep_export_log="true" />
+<com.dec.avw.core.Dept toString="larissa" id="PE" name="larissa" orgType="4" active="1" ep_export_log="true" />
+<com.dec.avw.core.Dept toString="Sales Department" id="sales" name="Sales Department" description="sales dept. of the PE project" orgType="4" active="1" ep_export_log="true" />
+<com.dec.avw.core.Dept toString="Senior Sales Department" id="seniorSales" name="Senior Sales Department" orgType="4" active="1" ep_export_log="true" />
+</body>
+</ep_export>

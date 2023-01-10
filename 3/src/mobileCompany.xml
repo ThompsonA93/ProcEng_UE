@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ep_export>
+<head>
+<content cluster="process_cluster" built="18-12-2022 10:02"/>
+<description>
+</description>
+<server name="epdemo" address="LAPTOP-V9QI6TRS" version="10.0.33564"/>
+<customer client="" exported_from="Larissa Krainer"/>
+</head>
+<body>
+<com.dec.avw.core.ProcessDefinition toString="MobileCompany (1)" oid="_mobileCompany_1" id="mobileCompany" version="1" name="MobileCompany" maxtime="0" active="0" application="com.dec.avw.core.Application:1" procprio="0" routeorthogonal="true" notation="1" ep_export_log="true"><source length="3988">process mobileCompany()
+version 1;
+name "MobileCompany";
+forms offerDraft offerDraft "offerDraft",closeCallNotes closeCallNotes "Close Call Notes",feedbackNotes feedbackNotes "Feedback Notes",incomingCustomerCall incomingCustomerCall "incomingCustomerCall",customPlanProposal customPlanProposal "Custom Plan Proposal",incomingCallForm form_incomingCall "incomingCallForm";
+application default;
+&lt;a1&gt;
+begin "start"
+   &lt;a2&gt;
+   helpdesk!home manuel() "receive customer call";
+   &lt;a3&gt;
+   !beatrix manuel(incomingCustomerCall) "fill the form";
+   &lt;a3_0&gt;
+   if UNSPECIFIED then "current plan ?"
+      &lt;a3_1&gt;
+      !beatrix manuel() "check request";
+      &lt;a3_1_1&gt;
+      if xpath:"&#36;form_incomingCustomerCall/c_reqCheaper = true" then "is request cheaper plan?"
+         &lt;a4&gt;
+         !beatrix pm_inform() "inform customer";
+         &lt;a5&gt;
+         !beatrix manuel() "close call";
+         &lt;a6&gt;
+         !beatrix manuel(closeCallNotes) "take note";
+         &lt;a7&gt;
+         !beatrix,closeCallNotes.note,!wong sendTask(closeCallNotes) "send notes to junior sales";
+         &lt;a8&gt;
+         !wong,closeCallNotes.note demo_receive(closeCallNotes) "receive notes from helpdesk";
+         &lt;a9&gt;
+         !wong,closeCallNotes.note manuel() "read notes from helpdesk";
+         &lt;a10&gt;
+         !wong,closeCallNotes.note manuel(closeCallNotes) skipable "add additional notes";
+         &lt;a11&gt;
+         closeCallNotes.note,!wong,!beatrix sendTask(closeCallNotes) "send to helpdesk";
+         &lt;a12&gt;
+         !beatrix demo_receive(closeCallNotes) "Receive extended Notes";
+         &lt;a36&gt;
+         goto a34 "end";
+      &lt;a3_0_0_0&gt;
+      end "merge";
+   else
+      &lt;a3_0_1&gt;
+      if UNSPECIFIED then "current plan ?"
+         &lt;a3_2&gt;
+         !beatrix manuel() "check request";
+      else
+         &lt;a35&gt;
+         goto a34 "end";
+      end "current plan is BillionaireUnlimited";
+      &lt;a3_0_2&gt;
+      if xpath:"&#36;form_incomingCustomerCall/c_reqBetter = true" then "is request better plan ?"
+         &lt;a13&gt;
+         !beatrix,!wallace,closeCallNotes.note sendTask(incomingCustomerCall) "forward request to senior sales";
+         &lt;a14&gt;
+         !wallace,closeCallNotes.note demo_receive(incomingCustomerCall) "receive notes from helpdesk";
+         &lt;a15&gt;
+         !wallace manuel(customPlanProposal) "create custom plan proposal";
+         &lt;a16&gt;
+         !wallace pm_inform() "inform customer";
+         &lt;a17&gt;
+         !wallace,!beatrix sendTask(customPlanProposal) "send information to helpdesk";
+         &lt;a18&gt;
+         !beatrix demo_receive(customPlanProposal) "recieve information";
+         &lt;a19&gt;
+         !beatrix pm_inform(feedbackNotes) "contact customer";
+         &lt;a20&gt;
+         !beatrix manuel() "close call";
+         &lt;a37&gt;
+         goto a34 "end";
+      &lt;a1000&gt;
+      end "merge";
+   &lt;a1001&gt;
+   end "merge";
+   &lt;a21&gt;
+   !beatrix,!brody sendTask(incomingCustomerCall) "forward to sales";
+   &lt;a22&gt;
+   !brody demo_receive(incomingCustomerCall) "receive request from helpdes";
+   &lt;a23&gt;
+   !brody manuel(offerDraft) "prepare offer draft";
+   &lt;a24&gt;
+   !brody,!pender sendTask(offerDraft) "forward to senior sales";
+   !pender demo_receive(offerDraft) "receive offer draft from junior sales";
+   &lt;a25&gt;
+   !pender manuel(offerDraft) skipable "change price";
+   &lt;a1002&gt;
+   if xpath:"&#36;form_offerDraft/newPrice &gt; 100" then "check new price"
+      &lt;a100&gt;
+      goto a25 "price have to be lower than 100";
+   else
+      &lt;a26&gt;
+      !pender,!brody sendTask(offerDraft) "forward to junior sales";
+      &lt;a27&gt;
+      !brody demo_receive(offerDraft) "receive offer draft from senior sales";
+      &lt;a28&gt;
+      !brody pm_inform() "contact customer";
+      &lt;a29&gt;
+      !brody,!mcfly sendTask(offerDraft) "send data to helpdesk";
+      &lt;a30&gt;
+      !mcfly demo_receive(offerDraft) "receive data from junior sales";
+      &lt;a31&gt;
+      !mcfly pm_inform() "contact customer";
+      &lt;a32&gt;
+      !mcfly manuel(feedbackNotes) "take feedback notes";
+      &lt;a33&gt;
+      !mcfly manuel() "close call";
+   &lt;a1004&gt;
+   end "merge";
+&lt;a34&gt;
+end "end"
+</source></com.dec.avw.core.ProcessDefinition>
+<com.dec.avw.core.FormType toString="closeCallNotes (Close Call Notes 1)" oid="_closeCallNotes_1" id="closeCallNotes" version="1" name="Close Call Notes" className="com.groiss.forms.closeCallNotes_1" application="com.dec.avw.core.Application:1" versionOnUpdate="0" nameAttribs="note" type="1" useableInDMS="true" templateType="3" xhtmlpage="default/forms/closeCallNotes_1.xhtml" width="0" height="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.FormField toString="FormField(1,note,string,500,Note,,false,false)" formtype="com.dec.avw.core.FormType:_closeCallNotes_1" type="1" columnName="note" displayString="Note" xmltype="string" fieldsize="500" tabpos="-1" description="notes from helpdesk employee" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.ObjectClassRightRel toString="Create objects -&gt; Close Call Notes" objectClass="com.dec.avw.core.FormType:_closeCallNotes_1" avwright="com.dec.avw.core.Right:61" />
+<com.dec.avw.core.ObjectClassRightRel toString="Delete objects -&gt; Close Call Notes" objectClass="com.dec.avw.core.FormType:_closeCallNotes_1" avwright="com.dec.avw.core.Right:319" />
+<com.dec.avw.core.ObjectClassRightRel toString="Edit objects -&gt; Close Call Notes" objectClass="com.dec.avw.core.FormType:_closeCallNotes_1" avwright="com.dec.avw.core.Right:60" />
+<com.dec.avw.core.ObjectClassRightRel toString="View objects -&gt; Close Call Notes" objectClass="com.dec.avw.core.FormType:_closeCallNotes_1" avwright="com.dec.avw.core.Right:6" />
+<com.dec.avw.core.ActivityForm toString="MobileCompany -&gt; Close Call Notes" oid="__mobileCompany_1_closeCallNotes" activity="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" fid="closeCallNotes" ftyp="com.dec.avw.core.FormType:_closeCallNotes_1" pos="0" fname="Close Call Notes" />
+<com.dec.avw.core.FormType toString="customPlanProposal (Custom Plan Proposal 1)" oid="_customPlanProposal_1" id="customPlanProposal" version="1" name="Custom Plan Proposal" className="com.groiss.forms.customPlanProposal_1" application="com.dec.avw.core.Application:1" versionOnUpdate="0" nameAttribs="new_price" type="1" useableInDMS="true" templateType="3" xhtmlpage="default/forms/customPlanProposal_1.xhtml" width="0" height="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.FormField toString="FormField(1,c_better,boolean,null,better,,false,false)" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" type="1" columnName="c_better" displayString="better" xmltype="boolean" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_cheaper,boolean,null,Cheaper,,false,false)" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" type="1" columnName="c_cheaper" displayString="Cheaper" xmltype="boolean" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_name,string,255,Customer Name,,false,false)" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" type="1" columnName="c_name" displayString="Customer Name" xmltype="string" fieldsize="255" tabpos="-1" description="Name of the custome calling" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_notes,string,500,Notes,,false,false)" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" type="1" columnName="c_notes" displayString="Notes" xmltype="string" fieldsize="500" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_number,string,15,Customer Phone Number,,false,false)" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" type="1" columnName="c_number" displayString="Customer Phone Number" xmltype="string" fieldsize="15" tabpos="-1" description="Phone number of the customer calling" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_paid,double,null,Current Amount Paid,,false,false)" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" type="1" columnName="c_paid" displayString="Current Amount Paid" xmltype="double" tabpos="-1" description="the current amount which has been paid by the customer" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_plan,string,255,Current Plan,,false,false)" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" type="1" columnName="c_plan" displayString="Current Plan" xmltype="string" fieldsize="255" tabpos="-1" description="current plan of the customer calling" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,new_price,double,null,New Price,,false,false)" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" type="1" columnName="new_price" displayString="New Price" xmltype="double" tabpos="-1" description="New price for the plan" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,old_price,double,null,Old Price,,false,false)" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" type="1" columnName="old_price" displayString="Old Price" xmltype="double" tabpos="-1" description="old price of the plan" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.ObjectClassRightRel toString="Create objects -&gt; Custom Plan Proposal" objectClass="com.dec.avw.core.FormType:_customPlanProposal_1" avwright="com.dec.avw.core.Right:61" />
+<com.dec.avw.core.ObjectClassRightRel toString="Delete objects -&gt; Custom Plan Proposal" objectClass="com.dec.avw.core.FormType:_customPlanProposal_1" avwright="com.dec.avw.core.Right:319" />
+<com.dec.avw.core.ObjectClassRightRel toString="Edit objects -&gt; Custom Plan Proposal" objectClass="com.dec.avw.core.FormType:_customPlanProposal_1" avwright="com.dec.avw.core.Right:60" />
+<com.dec.avw.core.ObjectClassRightRel toString="View objects -&gt; Custom Plan Proposal" objectClass="com.dec.avw.core.FormType:_customPlanProposal_1" avwright="com.dec.avw.core.Right:6" />
+<com.dec.avw.core.ActivityForm toString="MobileCompany -&gt; Custom Plan Proposal" oid="__mobileCompany_1_customPlanProposal" activity="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" fid="customPlanProposal" ftyp="com.dec.avw.core.FormType:_customPlanProposal_1" pos="0" fname="Custom Plan Proposal" />
+<com.dec.avw.core.FormType toString="feedbackNotes (Feedback Notes 1)" oid="_feedbackNotes_1" id="feedbackNotes" version="1" name="Feedback Notes" className="com.groiss.forms.feedbackNotes_1" application="com.dec.avw.core.Application:1" versionOnUpdate="0" nameAttribs="feedbackNote" type="0" useableInDMS="false" templateType="3" xhtmlpage="default/forms/feedbackNotes_1.xhtml" width="0" height="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.FormField toString="FormField(1,feedbackNote,string,500,Feedback Note,,false,false)" formtype="com.dec.avw.core.FormType:_feedbackNotes_1" type="1" columnName="feedbackNote" displayString="Feedback Note" xmltype="string" fieldsize="500" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.ObjectClassRightRel toString="Create objects -&gt; Feedback Notes" objectClass="com.dec.avw.core.FormType:_feedbackNotes_1" avwright="com.dec.avw.core.Right:61" />
+<com.dec.avw.core.ObjectClassRightRel toString="Delete objects -&gt; Feedback Notes" objectClass="com.dec.avw.core.FormType:_feedbackNotes_1" avwright="com.dec.avw.core.Right:319" />
+<com.dec.avw.core.ObjectClassRightRel toString="Edit objects -&gt; Feedback Notes" objectClass="com.dec.avw.core.FormType:_feedbackNotes_1" avwright="com.dec.avw.core.Right:60" />
+<com.dec.avw.core.ObjectClassRightRel toString="View objects -&gt; Feedback Notes" objectClass="com.dec.avw.core.FormType:_feedbackNotes_1" avwright="com.dec.avw.core.Right:6" />
+<com.dec.avw.core.ActivityForm toString="MobileCompany -&gt; Feedback Notes" oid="__mobileCompany_1_feedbackNotes" activity="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" fid="feedbackNotes" ftyp="com.dec.avw.core.FormType:_feedbackNotes_1" pos="0" fname="Feedback Notes" />
+<com.dec.avw.core.FormType toString="form_incomingCall (Form Incoming Call 1)" oid="_form_incomingCall_1" id="form_incomingCall" version="1" name="Form Incoming Call" className="com.groiss.forms.form_incomingCall_1" application="com.dec.avw.core.Application:1" versionOnUpdate="0" nameAttribs="c_name" type="1" useableInDMS="true" templateType="3" xhtmlpage="default/forms/form_incomingCall_1.xhtml" width="0" height="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.FormField toString="FormField(1,c_callReason,string,500,customerCallReason,,false,false)" formtype="com.dec.avw.core.FormType:_form_incomingCall_1" type="1" columnName="c_callReason" displayString="customerCallReason" xmltype="string" fieldsize="500" tabpos="-1" description="reason for the call (note)" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_name,string,255,customerName,,false,false)" formtype="com.dec.avw.core.FormType:_form_incomingCall_1" type="1" columnName="c_name" displayString="customerName" xmltype="string" fieldsize="255" tabpos="-1" description="Name of the customer who calls the helpdesk." genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_number,string,15,customerNumber,,false,false)" formtype="com.dec.avw.core.FormType:_form_incomingCall_1" type="1" columnName="c_number" displayString="customerNumber" xmltype="string" fieldsize="15" tabpos="-1" description="The customer phone number." genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_paid,double,null,customerPaid,,false,false)" formtype="com.dec.avw.core.FormType:_form_incomingCall_1" type="1" columnName="c_paid" displayString="customerPaid" xmltype="double" tabpos="-1" description="current amount paid" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_plan,string,255,customerPlan,,false,false)" formtype="com.dec.avw.core.FormType:_form_incomingCall_1" type="1" columnName="c_plan" displayString="customerPlan" xmltype="string" fieldsize="255" tabpos="-1" description="the plan which the customer has been chosen" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.ObjectClassRightRel toString="Create objects -&gt; Form Incoming Call" objectClass="com.dec.avw.core.FormType:_form_incomingCall_1" avwright="com.dec.avw.core.Right:61" />
+<com.dec.avw.core.ObjectClassRightRel toString="Delete objects -&gt; Form Incoming Call" objectClass="com.dec.avw.core.FormType:_form_incomingCall_1" avwright="com.dec.avw.core.Right:319" />
+<com.dec.avw.core.ObjectClassRightRel toString="Edit objects -&gt; Form Incoming Call" objectClass="com.dec.avw.core.FormType:_form_incomingCall_1" avwright="com.dec.avw.core.Right:60" />
+<com.dec.avw.core.ObjectClassRightRel toString="View objects -&gt; Form Incoming Call" objectClass="com.dec.avw.core.FormType:_form_incomingCall_1" avwright="com.dec.avw.core.Right:6" />
+<com.dec.avw.core.Role toString="Customer Call Service (Default)" oid="_customerCallService" id="customerCallService" name="Customer Call Service" description="Process customer calls." type="0" application="com.dec.avw.core.Application:1" active="1" ep_export_log="true" />
+<RequiredObject reqobjclass="com.dec.avw.core.Dept" toString="Helpdesk" oid="_helpdesk" id="helpdesk" ep_export_log="true" />
+<com.dec.avw.acl.ACLEntry toString="Customer Call Service-Edit objects-Form Incoming Call" agent="com.dec.avw.core.Role:_customerCallService" dept="com.dec.avw.core.Dept:_helpdesk" avwright="com.dec.avw.core.Right:60" target="com.dec.avw.core.FormType:_form_incomingCall_1" objScope="3" orgScope="1" positive="true" ignoreSubst="false" isCurrent="1" />
+<com.dec.avw.core.ActivityForm toString="MobileCompany -&gt; Form Incoming Call" activity="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" fid="incomingCallForm" ftyp="com.dec.avw.core.FormType:_form_incomingCall_1" pos="0" />
+<com.dec.avw.core.FormType toString="incomingCustomerCall (incomingCustomerCall 1)" oid="_incomingCustomerCall_1" id="incomingCustomerCall" version="1" name="incomingCustomerCall" className="com.groiss.forms.incomingCustomerCall_1" application="com.dec.avw.core.Application:1" versionOnUpdate="0" nameAttribs="c_name" type="1" useableInDMS="true" templateType="3" xhtmlpage="default/forms/incomingCustomerCall_1.xhtml" width="0" height="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.FormField toString="FormField(1,additionalNotes,string,500,notes,,false,false)" formtype="com.dec.avw.core.FormType:_incomingCustomerCall_1" type="1" columnName="additionalNotes" displayString="notes" xmltype="string" fieldsize="500" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_name,string,255,customerName,,false,false)" formtype="com.dec.avw.core.FormType:_incomingCustomerCall_1" type="1" columnName="c_name" displayString="customerName" xmltype="string" fieldsize="255" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_number,string,15,customerNumber,,false,false)" formtype="com.dec.avw.core.FormType:_incomingCustomerCall_1" type="1" columnName="c_number" displayString="customerNumber" xmltype="string" fieldsize="15" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_paid,double,null,customerPaid,,false,false)" formtype="com.dec.avw.core.FormType:_incomingCustomerCall_1" type="1" columnName="c_paid" displayString="customerPaid" xmltype="double" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_plan,string,255,customerPlan,,false,false)" formtype="com.dec.avw.core.FormType:_incomingCustomerCall_1" type="1" columnName="c_plan" displayString="customerPlan" xmltype="string" fieldsize="255" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_reqBetter,boolean,null,customerCallReasonBetter,,false,false)" formtype="com.dec.avw.core.FormType:_incomingCustomerCall_1" type="1" columnName="c_reqBetter" displayString="customerCallReasonBetter" xmltype="boolean" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,c_reqCheaper,boolean,null,customerCallReasonCheaper,,false,false)" formtype="com.dec.avw.core.FormType:_incomingCustomerCall_1" type="1" columnName="c_reqCheaper" displayString="customerCallReasonCheaper" xmltype="boolean" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.ObjectClassRightRel toString="Create objects -&gt; incomingCustomerCall" objectClass="com.dec.avw.core.FormType:_incomingCustomerCall_1" avwright="com.dec.avw.core.Right:61" />
+<com.dec.avw.core.ObjectClassRightRel toString="Delete objects -&gt; incomingCustomerCall" objectClass="com.dec.avw.core.FormType:_incomingCustomerCall_1" avwright="com.dec.avw.core.Right:319" />
+<com.dec.avw.core.ObjectClassRightRel toString="Edit objects -&gt; incomingCustomerCall" objectClass="com.dec.avw.core.FormType:_incomingCustomerCall_1" avwright="com.dec.avw.core.Right:60" />
+<com.dec.avw.core.ObjectClassRightRel toString="View objects -&gt; incomingCustomerCall" objectClass="com.dec.avw.core.FormType:_incomingCustomerCall_1" avwright="com.dec.avw.core.Right:6" />
+<com.dec.avw.core.ActivityForm toString="MobileCompany -&gt; incomingCustomerCall" oid="__mobileCompany_1_incomingCustomerCall" activity="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" fid="incomingCustomerCall" ftyp="com.dec.avw.core.FormType:_incomingCustomerCall_1" pos="0" />
+<com.dec.avw.core.FormType toString="offerDraft (offerDraft 1)" oid="_offerDraft_1" id="offerDraft" version="1" name="offerDraft" className="com.groiss.forms.offerDraft_1" application="com.dec.avw.core.Application:1" versionOnUpdate="0" nameAttribs="newPlan" type="1" useableInDMS="true" templateType="3" xhtmlpage="default/forms/offerDraft_1.xhtml" width="0" height="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.FormField toString="FormField(1,customerName,string,255,customerName,,false,false)" formtype="com.dec.avw.core.FormType:_offerDraft_1" type="1" columnName="customerName" displayString="customerName" xmltype="string" fieldsize="255" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,customerNumber,string,15,customerNumber,,false,false)" formtype="com.dec.avw.core.FormType:_offerDraft_1" type="1" columnName="customerNumber" displayString="customerNumber" xmltype="string" fieldsize="15" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,newPlan,string,255,newPlan,,false,false)" formtype="com.dec.avw.core.FormType:_offerDraft_1" type="1" columnName="newPlan" displayString="newPlan" xmltype="string" fieldsize="255" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,newPrice,double,null,newPrice,,false,false)" formtype="com.dec.avw.core.FormType:_offerDraft_1" type="1" columnName="newPrice" displayString="newPrice" xmltype="double" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,notes,string,500,notes,,false,false)" formtype="com.dec.avw.core.FormType:_offerDraft_1" type="1" columnName="notes" displayString="notes" xmltype="string" fieldsize="500" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,oldPlan,string,255,oldPlan,,false,false)" formtype="com.dec.avw.core.FormType:_offerDraft_1" type="1" columnName="oldPlan" displayString="oldPlan" xmltype="string" fieldsize="255" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.FormField toString="FormField(1,oldPrice,double,null,oldPrice,,false,false)" formtype="com.dec.avw.core.FormType:_offerDraft_1" type="1" columnName="oldPrice" displayString="oldPrice" xmltype="double" tabpos="-1" genrefconstraint="false" genindex="false" />
+<com.dec.avw.core.ObjectClassRightRel toString="Create objects -&gt; offerDraft" objectClass="com.dec.avw.core.FormType:_offerDraft_1" avwright="com.dec.avw.core.Right:61" />
+<com.dec.avw.core.ObjectClassRightRel toString="Delete objects -&gt; offerDraft" objectClass="com.dec.avw.core.FormType:_offerDraft_1" avwright="com.dec.avw.core.Right:319" />
+<com.dec.avw.core.ObjectClassRightRel toString="Edit objects -&gt; offerDraft" objectClass="com.dec.avw.core.FormType:_offerDraft_1" avwright="com.dec.avw.core.Right:60" />
+<com.dec.avw.core.ObjectClassRightRel toString="View objects -&gt; offerDraft" objectClass="com.dec.avw.core.FormType:_offerDraft_1" avwright="com.dec.avw.core.Right:6" />
+<com.dec.avw.core.ActivityForm toString="MobileCompany -&gt; offerDraft" oid="__mobileCompany_1_offerDraft" activity="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" fid="offerDraft" ftyp="com.dec.avw.core.FormType:_offerDraft_1" pos="0" />
+<com.dec.avw.core.Step toString="a1 (start)" oid="__mobileCompany_1_1_1" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="1" type="1" kind="0" activityName="start" srcLine="0" x="558" y="18" w="24" h="24" skipable="false" stepLabel="a1" />
+<com.dec.avw.core.Task toString="Manuel Task (manuel, 1)" oid="_manuel_1" id="manuel" version="1" name="Manuel Task" description="The task is done by one User manually." cost="0" maxTime="0" setFirst="2" setFurther="2" application="com.dec.avw.core.Application:1" effort="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.Step toString="a2 (receive customer call)" oid="__mobileCompany_1_20_29" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="29" type="20" kind="0" activityName="receive customer call" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="520" y="70" w="100" h="60" skipable="false" stepLabel="a2" />
+<com.dec.avw.core.AgentDescription toString="helpdesk!home" agentString="helpdesk!home" step="com.dec.avw.core.Step:__mobileCompany_1_20_29" pos="1" agent="com.dec.avw.core.Role:3" dept="com.dec.avw.core.Dept:_helpdesk" type="2" />
+<com.dec.avw.core.Step toString="a3 (fill the form)" oid="__mobileCompany_1_20_4" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="4" type="20" kind="0" activityName="fill the form" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="520" y="140" w="100" h="60" skipable="false" stepLabel="a3" />
+<RequiredObject reqobjclass="com.dec.avw.core.User" toString="Kiddo Beatrix beatrix" oid="_beatrix" id="beatrix" ep_export_log="true" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_4" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Step toString="a3_0 (current plan ?)" oid="__mobileCompany_1_3_6" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="6" type="3" kind="0" activityName="current plan ?" srcLine="0" x="565" y="255" w="30" h="30" skipable="false" stepLabel="a3_0" />
+<com.dec.avw.core.Step toString="a3_1 (check request)" oid="__mobileCompany_1_20_7" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="7" type="20" kind="0" activityName="check request" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="160" y="240" w="100" h="60" skipable="false" stepLabel="a3_1" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_7" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Step toString="a3_1_1 (is request cheaper plan?)" oid="__mobileCompany_1_3_9" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="9" type="3" kind="0" activityName="is request cheaper plan?" srcLine="0" expression="x&#36;form_incomingCustomerCall/c_reqCheaper = true" x="195" y="325" w="30" h="30" skipable="false" stepLabel="a3_1_1" />
+<RequiredObject reqobjclass="com.dec.avw.core.Application" toString="Project Management" oid="_pm" id="pm" ep_export_log="true" />
+<com.dec.avw.core.Task toString="Inform (pm_inform, 1)" oid="_pm_inform_1" id="pm_inform" version="1" name="inform" cost="0" maxTime="0" setFirst="2" setFurther="2" application="com.dec.avw.core.Application:_pm" effort="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.Step toString="a4 (inform customer)" oid="__mobileCompany_1_20_10" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="10" type="20" kind="0" activityName="inform customer" activity="com.dec.avw.core.Task:_pm_inform_1" srcLine="0" expression="pm_inform" x="40" y="370" w="100" h="60" skipable="false" stepLabel="a4" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_10" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Step toString="a5 (close call)" oid="__mobileCompany_1_20_12" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="12" type="20" kind="0" activityName="close call" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="40" y="440" w="100" h="60" skipable="false" stepLabel="a5" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_12" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Step toString="a6 (take note)" oid="__mobileCompany_1_20_13" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="13" type="20" kind="0" activityName="take note" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="40" y="510" w="100" h="60" skipable="false" stepLabel="a6" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_13" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Task toString="Send Task (sendTask, 1)" oid="_sendTask_1" id="sendTask" version="1" name="Send Task" description="This task is for sending documents, notes or other stuff needed in the process." cost="0" maxTime="0" setFirst="2" setFurther="2" application="com.dec.avw.core.Application:1" effort="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.Step toString="a7 (send notes to junior sales)" oid="__mobileCompany_1_20_15" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="15" type="20" kind="0" activityName="send notes to junior sales" activity="com.dec.avw.core.Task:_sendTask_1" srcLine="0" expression="sendTask" x="40" y="580" w="100" h="60" skipable="false" stepLabel="a7" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_15" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<RequiredObject reqobjclass="com.dec.avw.core.User" toString="Wong Faye wong" oid="_wong" id="wong" ep_export_log="true" />
+<com.dec.avw.core.AgentDescription toString="!wong" agentString="!wong" step="com.dec.avw.core.Step:__mobileCompany_1_20_15" pos="3" agent="com.dec.avw.core.User:_wong" type="1" />
+<com.dec.avw.core.AgentDescription toString="closeCallNotes.note" agentString="closeCallNotes.note" step="com.dec.avw.core.Step:__mobileCompany_1_20_15" pos="2" type="5" />
+<RequiredObject reqobjclass="com.dec.avw.core.Application" toString="demo" oid="_demo" id="demo" ep_export_log="true" />
+<com.dec.avw.core.Task toString="Receive (demo_receive, 1)" oid="_demo_receive_1" id="demo_receive" version="1" name="receive_task" postcondition="com.groiss.demo.SystemSteps.receivePost()" avwProc="com.groiss.demo.SystemSteps.receivePre()" cost="0" maxTime="0" setFirst="2" setFurther="2" application="com.dec.avw.core.Application:_demo" effort="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.Step toString="a8 (receive notes from helpdesk)" oid="__mobileCompany_1_20_36" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="36" type="20" kind="0" activityName="receive notes from helpdesk" activity="com.dec.avw.core.Task:_demo_receive_1" srcLine="0" expression="demo_receive" x="40" y="650" w="100" h="60" skipable="false" stepLabel="a8" />
+<com.dec.avw.core.AgentDescription toString="!wong" agentString="!wong" step="com.dec.avw.core.Step:__mobileCompany_1_20_36" pos="1" agent="com.dec.avw.core.User:_wong" type="1" />
+<com.dec.avw.core.AgentDescription toString="closeCallNotes.note" agentString="closeCallNotes.note" step="com.dec.avw.core.Step:__mobileCompany_1_20_36" pos="2" type="5" />
+<com.dec.avw.core.Step toString="a9 (read notes from helpdesk)" oid="__mobileCompany_1_20_37" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="37" type="20" kind="0" activityName="read notes from helpdesk" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="42" y="720" w="95" h="60" skipable="false" stepLabel="a9" />
+<com.dec.avw.core.AgentDescription toString="!wong" agentString="!wong" step="com.dec.avw.core.Step:__mobileCompany_1_20_37" pos="1" agent="com.dec.avw.core.User:_wong" type="1" />
+<com.dec.avw.core.AgentDescription toString="closeCallNotes.note" agentString="closeCallNotes.note" step="com.dec.avw.core.Step:__mobileCompany_1_20_37" pos="2" type="5" />
+<com.dec.avw.core.Step toString="a10 (add additional notes)" oid="__mobileCompany_1_20_39" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="39" type="20" kind="0" activityName="add additional notes" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="40" y="800" w="100" h="60" skipable="true" stepLabel="a10" />
+<com.dec.avw.core.AgentDescription toString="!wong" agentString="!wong" step="com.dec.avw.core.Step:__mobileCompany_1_20_39" pos="1" agent="com.dec.avw.core.User:_wong" type="1" />
+<com.dec.avw.core.AgentDescription toString="closeCallNotes.note" agentString="closeCallNotes.note" step="com.dec.avw.core.Step:__mobileCompany_1_20_39" pos="2" type="5" />
+<com.dec.avw.core.Step toString="a11 (send to helpdesk)" oid="__mobileCompany_1_20_38" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="38" type="20" kind="0" activityName="send to helpdesk" activity="com.dec.avw.core.Task:_sendTask_1" srcLine="0" expression="sendTask" x="40" y="870" w="100" h="60" skipable="false" stepLabel="a11" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_38" pos="3" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.AgentDescription toString="!wong" agentString="!wong" step="com.dec.avw.core.Step:__mobileCompany_1_20_38" pos="2" agent="com.dec.avw.core.User:_wong" type="1" />
+<com.dec.avw.core.AgentDescription toString="closeCallNotes.note" agentString="closeCallNotes.note" step="com.dec.avw.core.Step:__mobileCompany_1_20_38" pos="1" type="5" />
+<com.dec.avw.core.Step toString="a12 (Receive extended Notes)" oid="__mobileCompany_1_20_16" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="16" type="20" kind="0" activityName="Receive extended Notes" activity="com.dec.avw.core.Task:_demo_receive_1" srcLine="0" expression="demo_receive" x="40" y="940" w="100" h="60" skipable="false" stepLabel="a12" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_16" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Step toString="a36 (end)" oid="__mobileCompany_1_13_17" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="17" type="13" kind="0" activityName="end" srcLine="0" x="78" y="1028" w="24" h="24" skipable="false" stepLabel="a36" />
+<com.dec.avw.core.Step toString="a34 (end)" oid="__mobileCompany_1_2_2" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="2" type="2" kind="0" activityName="end" srcLine="0" x="398" y="2598" w="24" h="24" skipable="false" stepIcon="lang/default/images/pred/nodes/end.png" stepLabel="a34" />
+<com.dec.avw.core.Step toString="a1004 (merge)" oid="__mobileCompany_1_2_50" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="50" type="2" kind="0" activityName="merge" srcLine="0" x="395" y="2565" w="30" h="30" skipable="false" stepLabel="a1004" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=2;id=50; a1004;),Step(type=2;id=2; a34;))" src="com.dec.avw.core.Step:__mobileCompany_1_2_50" dest="com.dec.avw.core.Step:__mobileCompany_1_2_2" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a33 (close call)" oid="__mobileCompany_1_20_60" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="60" type="20" kind="0" activityName="close call" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="490" y="2440" w="100" h="60" skipable="false" stepLabel="a33" />
+<RequiredObject reqobjclass="com.dec.avw.core.User" toString="McFly Marty mcfly" oid="_mcfly" id="mcfly" ep_export_log="true" />
+<com.dec.avw.core.AgentDescription toString="!mcfly" agentString="!mcfly" step="com.dec.avw.core.Step:__mobileCompany_1_20_60" pos="1" agent="com.dec.avw.core.User:_mcfly" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=60; a33;),Step(type=2;id=50; a1004;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_60" dest="com.dec.avw.core.Step:__mobileCompany_1_2_50" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a32 (take feedback notes)" oid="__mobileCompany_1_20_59" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="59" type="20" kind="0" activityName="take feedback notes" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="490" y="2310" w="100" h="60" skipable="false" stepLabel="a32" />
+<com.dec.avw.core.AgentDescription toString="!mcfly" agentString="!mcfly" step="com.dec.avw.core.Step:__mobileCompany_1_20_59" pos="1" agent="com.dec.avw.core.User:_mcfly" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=59; a32;),Step(type=20;id=60; a33;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_59" dest="com.dec.avw.core.Step:__mobileCompany_1_20_60" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a31 (contact customer)" oid="__mobileCompany_1_20_58" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="58" type="20" kind="0" activityName="contact customer" activity="com.dec.avw.core.Task:_pm_inform_1" srcLine="0" expression="pm_inform" x="490" y="2210" w="100" h="60" skipable="false" stepLabel="a31" />
+<com.dec.avw.core.AgentDescription toString="!mcfly" agentString="!mcfly" step="com.dec.avw.core.Step:__mobileCompany_1_20_58" pos="1" agent="com.dec.avw.core.User:_mcfly" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=58; a31;),Step(type=20;id=59; a32;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_58" dest="com.dec.avw.core.Step:__mobileCompany_1_20_59" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a30 (receive data from junior sales)" oid="__mobileCompany_1_20_57" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="57" type="20" kind="0" activityName="receive data from junior sales" activity="com.dec.avw.core.Task:_demo_receive_1" srcLine="0" expression="demo_receive" x="490" y="2130" w="100" h="60" skipable="false" stepLabel="a30" />
+<com.dec.avw.core.AgentDescription toString="!mcfly" agentString="!mcfly" step="com.dec.avw.core.Step:__mobileCompany_1_20_57" pos="1" agent="com.dec.avw.core.User:_mcfly" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=57; a30;),Step(type=20;id=58; a31;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_57" dest="com.dec.avw.core.Step:__mobileCompany_1_20_58" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a29 (send data to helpdesk)" oid="__mobileCompany_1_20_56" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="56" type="20" kind="0" activityName="send data to helpdesk" activity="com.dec.avw.core.Task:_sendTask_1" srcLine="0" expression="sendTask" x="490" y="2040" w="100" h="60" skipable="false" stepLabel="a29" />
+<RequiredObject reqobjclass="com.dec.avw.core.User" toString="Brody Marcus brody" oid="_brody" id="brody" ep_export_log="true" />
+<com.dec.avw.core.AgentDescription toString="!brody" agentString="!brody" step="com.dec.avw.core.Step:__mobileCompany_1_20_56" pos="1" agent="com.dec.avw.core.User:_brody" type="1" />
+<com.dec.avw.core.AgentDescription toString="!mcfly" agentString="!mcfly" step="com.dec.avw.core.Step:__mobileCompany_1_20_56" pos="2" agent="com.dec.avw.core.User:_mcfly" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=56; a29;),Step(type=20;id=57; a30;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_56" dest="com.dec.avw.core.Step:__mobileCompany_1_20_57" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a28 (contact customer)" oid="__mobileCompany_1_20_55" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="55" type="20" kind="0" activityName="contact customer" activity="com.dec.avw.core.Task:_pm_inform_1" srcLine="0" expression="pm_inform" x="490" y="1950" w="100" h="60" skipable="false" stepLabel="a28" />
+<com.dec.avw.core.AgentDescription toString="!brody" agentString="!brody" step="com.dec.avw.core.Step:__mobileCompany_1_20_55" pos="1" agent="com.dec.avw.core.User:_brody" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=55; a28;),Step(type=20;id=56; a29;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_55" dest="com.dec.avw.core.Step:__mobileCompany_1_20_56" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a27 (receive offer draft from senior sales)" oid="__mobileCompany_1_20_54" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="54" type="20" kind="0" activityName="receive offer draft from senior sales" activity="com.dec.avw.core.Task:_demo_receive_1" srcLine="0" expression="demo_receive" x="490" y="1860" w="100" h="60" skipable="false" stepLabel="a27" />
+<com.dec.avw.core.AgentDescription toString="!brody" agentString="!brody" step="com.dec.avw.core.Step:__mobileCompany_1_20_54" pos="1" agent="com.dec.avw.core.User:_brody" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=54; a27;),Step(type=20;id=55; a28;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_54" dest="com.dec.avw.core.Step:__mobileCompany_1_20_55" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a26 (forward to junior sales)" oid="__mobileCompany_1_20_52" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="52" type="20" kind="0" activityName="forward to junior sales" activity="com.dec.avw.core.Task:_sendTask_1" srcLine="0" expression="sendTask" x="490" y="1760" w="100" h="60" skipable="false" stepLabel="a26" />
+<com.dec.avw.core.AgentDescription toString="!brody" agentString="!brody" step="com.dec.avw.core.Step:__mobileCompany_1_20_52" pos="2" agent="com.dec.avw.core.User:_brody" type="1" />
+<RequiredObject reqobjclass="com.dec.avw.core.User" toString="Pender Gil pender" oid="_pender" id="pender" ep_export_log="true" />
+<com.dec.avw.core.AgentDescription toString="!pender" agentString="!pender" step="com.dec.avw.core.Step:__mobileCompany_1_20_52" pos="1" agent="com.dec.avw.core.User:_pender" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=52; a26;),Step(type=20;id=54; a27;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_52" dest="com.dec.avw.core.Step:__mobileCompany_1_20_54" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a1002 (check new price)" oid="__mobileCompany_1_3_51" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="51" type="3" kind="0" activityName="check new price" srcLine="0" expression="x&#36;form_offerDraft/newPrice &gt; 100" x="375" y="1715" w="30" h="30" skipable="false" stepLabel="a1002" />
+<com.dec.avw.core.Step toString="a100 (price have to be lower than 100)" oid="__mobileCompany_1_13_53" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="53" type="13" kind="0" activityName="price have to be lower than 100" srcLine="0" x="215" y="1715" w="30" h="30" skipable="false" stepLabel="a100" />
+<com.dec.avw.core.Step toString="a25 (change price)" oid="__mobileCompany_1_20_48" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="48" type="20" kind="0" activityName="change price" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="340" y="1630" w="100" h="60" skipable="true" stepLabel="a25" />
+<com.dec.avw.core.AgentDescription toString="!pender" agentString="!pender" step="com.dec.avw.core.Step:__mobileCompany_1_20_48" pos="1" agent="com.dec.avw.core.User:_pender" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=48; a25;),Step(type=3;id=51; a1002;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_48" dest="com.dec.avw.core.Step:__mobileCompany_1_3_51" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=13;id=53; a100;),Step(type=20;id=48; a25;))" src="com.dec.avw.core.Step:__mobileCompany_1_13_53" dest="com.dec.avw.core.Step:__mobileCompany_1_20_48" type="0" xShift="-1" yShift="1670" />
+<com.dec.avw.core.Step toString="receive offer draft from junior sales" oid="__mobileCompany_1_20_47" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="47" type="20" kind="0" activityName="receive offer draft from junior sales" activity="com.dec.avw.core.Task:_demo_receive_1" srcLine="0" expression="demo_receive" x="340" y="1540" w="100" h="60" skipable="false" />
+<com.dec.avw.core.AgentDescription toString="!pender" agentString="!pender" step="com.dec.avw.core.Step:__mobileCompany_1_20_47" pos="1" agent="com.dec.avw.core.User:_pender" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=47;),Step(type=20;id=48; a25;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_47" dest="com.dec.avw.core.Step:__mobileCompany_1_20_48" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a24 (forward to senior sales)" oid="__mobileCompany_1_20_46" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="46" type="20" kind="0" activityName="forward to senior sales" activity="com.dec.avw.core.Task:_sendTask_1" srcLine="0" expression="sendTask" x="340" y="1450" w="100" h="60" skipable="false" stepLabel="a24" />
+<com.dec.avw.core.AgentDescription toString="!brody" agentString="!brody" step="com.dec.avw.core.Step:__mobileCompany_1_20_46" pos="1" agent="com.dec.avw.core.User:_brody" type="1" />
+<com.dec.avw.core.AgentDescription toString="!pender" agentString="!pender" step="com.dec.avw.core.Step:__mobileCompany_1_20_46" pos="2" agent="com.dec.avw.core.User:_pender" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=46; a24;),Step(type=20;id=47;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_46" dest="com.dec.avw.core.Step:__mobileCompany_1_20_47" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a23 (prepare offer draft)" oid="__mobileCompany_1_20_45" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="45" type="20" kind="0" activityName="prepare offer draft" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="340" y="1360" w="100" h="60" skipable="false" stepLabel="a23" />
+<com.dec.avw.core.AgentDescription toString="!brody" agentString="!brody" step="com.dec.avw.core.Step:__mobileCompany_1_20_45" pos="1" agent="com.dec.avw.core.User:_brody" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=45; a23;),Step(type=20;id=46; a24;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_45" dest="com.dec.avw.core.Step:__mobileCompany_1_20_46" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a22 (receive request from helpdes)" oid="__mobileCompany_1_20_44" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="44" type="20" kind="0" activityName="receive request from helpdes" activity="com.dec.avw.core.Task:_demo_receive_1" srcLine="0" expression="demo_receive" x="340" y="1270" w="100" h="60" skipable="false" stepLabel="a22" />
+<com.dec.avw.core.AgentDescription toString="!brody" agentString="!brody" step="com.dec.avw.core.Step:__mobileCompany_1_20_44" pos="1" agent="com.dec.avw.core.User:_brody" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=44; a22;),Step(type=20;id=45; a23;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_44" dest="com.dec.avw.core.Step:__mobileCompany_1_20_45" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a21 (forward to sales)" oid="__mobileCompany_1_20_19" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="19" type="20" kind="0" activityName="forward to sales" activity="com.dec.avw.core.Task:_sendTask_1" srcLine="0" expression="sendTask" x="340" y="1180" w="100" h="60" skipable="false" stepLabel="a21" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_19" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.AgentDescription toString="!brody" agentString="!brody" step="com.dec.avw.core.Step:__mobileCompany_1_20_19" pos="2" agent="com.dec.avw.core.User:_brody" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=19; a21;),Step(type=20;id=44; a22;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_19" dest="com.dec.avw.core.Step:__mobileCompany_1_20_44" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a1001 (merge)" oid="__mobileCompany_1_2_5" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="5" type="2" kind="0" activityName="merge" srcLine="0" x="375" y="1125" w="30" h="30" skipable="false" stepLabel="a1001" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=2;id=5; a1001;),Step(type=20;id=19; a21;))" src="com.dec.avw.core.Step:__mobileCompany_1_2_5" dest="com.dec.avw.core.Step:__mobileCompany_1_20_19" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a3_0_0_0 (merge)" oid="__mobileCompany_1_2_8" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="8" type="2" kind="0" activityName="merge" srcLine="0" x="175" y="1025" w="30" h="30" skipable="false" stepLabel="a3_0_0_0" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=2;id=8; a3_0_0_0;),Step(type=2;id=5; a1001;))" src="com.dec.avw.core.Step:__mobileCompany_1_2_8" dest="com.dec.avw.core.Step:__mobileCompany_1_2_5" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(2,Step(type=3;id=9; a3_1_1;),Step(type=2;id=8; a3_0_0_0;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_9" dest="com.dec.avw.core.Step:__mobileCompany_1_2_8" type="2" xShift="290" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(4,Step(type=13;id=17; a36;),Step(type=2;id=8; a3_0_0_0;))" src="com.dec.avw.core.Step:__mobileCompany_1_13_17" dest="com.dec.avw.core.Step:__mobileCompany_1_2_8" type="4" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a1000 (merge)" oid="__mobileCompany_1_2_22" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="22" type="2" kind="0" activityName="merge" srcLine="0" x="1275" y="1075" w="30" h="30" skipable="false" stepLabel="a1000" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=2;id=22; a1000;),Step(type=2;id=5; a1001;))" src="com.dec.avw.core.Step:__mobileCompany_1_2_22" dest="com.dec.avw.core.Step:__mobileCompany_1_2_5" type="0" xShift="-1" yShift="1130" />
+<com.dec.avw.core.Step toString="a3_0_2 (is request better plan ?)" oid="__mobileCompany_1_3_23" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="23" type="3" kind="0" activityName="is request better plan ?" srcLine="0" expression="x&#36;form_incomingCustomerCall/c_reqBetter = true" x="1265" y="375" w="30" h="30" skipable="false" stepLabel="a3_0_2" />
+<com.dec.avw.core.Step toString="a13 (forward request to senior sales)" oid="__mobileCompany_1_20_24" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="24" type="20" kind="0" activityName="forward request to senior sales" activity="com.dec.avw.core.Task:_sendTask_1" srcLine="0" expression="sendTask" x="950" y="360" w="100" h="60" skipable="false" stepLabel="a13" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_24" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<RequiredObject reqobjclass="com.dec.avw.core.User" toString="Wallace Mia wallace" oid="_wallace" id="wallace" ep_export_log="true" />
+<com.dec.avw.core.AgentDescription toString="!wallace" agentString="!wallace" step="com.dec.avw.core.Step:__mobileCompany_1_20_24" pos="2" agent="com.dec.avw.core.User:_wallace" type="1" />
+<com.dec.avw.core.AgentDescription toString="closeCallNotes.note" agentString="closeCallNotes.note" step="com.dec.avw.core.Step:__mobileCompany_1_20_24" pos="3" type="5" />
+<com.dec.avw.core.Step toString="a14 (receive notes from helpdesk)" oid="__mobileCompany_1_20_40" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="40" type="20" kind="0" activityName="receive notes from helpdesk" activity="com.dec.avw.core.Task:_demo_receive_1" srcLine="0" expression="demo_receive" x="950" y="450" w="100" h="60" skipable="false" stepLabel="a14" />
+<com.dec.avw.core.AgentDescription toString="!wallace" agentString="!wallace" step="com.dec.avw.core.Step:__mobileCompany_1_20_40" pos="1" agent="com.dec.avw.core.User:_wallace" type="1" />
+<com.dec.avw.core.AgentDescription toString="closeCallNotes.note" agentString="closeCallNotes.note" step="com.dec.avw.core.Step:__mobileCompany_1_20_40" pos="2" type="5" />
+<com.dec.avw.core.Step toString="a15 (create custom plan proposal)" oid="__mobileCompany_1_20_41" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="41" type="20" kind="0" activityName="create custom plan proposal" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="950" y="550" w="100" h="60" skipable="false" stepLabel="a15" />
+<com.dec.avw.core.AgentDescription toString="!wallace" agentString="!wallace" step="com.dec.avw.core.Step:__mobileCompany_1_20_41" pos="1" agent="com.dec.avw.core.User:_wallace" type="1" />
+<com.dec.avw.core.Step toString="a16 (inform customer)" oid="__mobileCompany_1_20_42" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="42" type="20" kind="0" activityName="inform customer" activity="com.dec.avw.core.Task:_pm_inform_1" srcLine="0" expression="pm_inform" x="950" y="650" w="100" h="60" skipable="false" stepLabel="a16" />
+<com.dec.avw.core.AgentDescription toString="!wallace" agentString="!wallace" step="com.dec.avw.core.Step:__mobileCompany_1_20_42" pos="1" agent="com.dec.avw.core.User:_wallace" type="1" />
+<com.dec.avw.core.Step toString="a17 (send information to helpdesk)" oid="__mobileCompany_1_20_43" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="43" type="20" kind="0" activityName="send information to helpdesk" activity="com.dec.avw.core.Task:_sendTask_1" srcLine="0" expression="sendTask" x="950" y="740" w="100" h="60" skipable="false" stepLabel="a17" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_43" pos="2" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.AgentDescription toString="!wallace" agentString="!wallace" step="com.dec.avw.core.Step:__mobileCompany_1_20_43" pos="1" agent="com.dec.avw.core.User:_wallace" type="1" />
+<com.dec.avw.core.Step toString="a18 (recieve information)" oid="__mobileCompany_1_20_25" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="25" type="20" kind="0" activityName="recieve information" activity="com.dec.avw.core.Task:_demo_receive_1" srcLine="0" expression="demo_receive" x="950" y="820" w="100" h="60" skipable="false" stepLabel="a18" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_25" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Step toString="a19 (contact customer)" oid="__mobileCompany_1_20_26" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="26" type="20" kind="0" activityName="contact customer" activity="com.dec.avw.core.Task:_pm_inform_1" srcLine="0" expression="pm_inform" x="950" y="900" w="100" h="60" skipable="false" stepLabel="a19" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_26" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Step toString="a20 (close call)" oid="__mobileCompany_1_20_27" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="27" type="20" kind="0" activityName="close call" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="950" y="990" w="100" h="60" skipable="false" stepLabel="a20" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_27" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Step toString="a37 (end)" oid="__mobileCompany_1_13_28" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="28" type="13" kind="0" activityName="end" srcLine="0" x="988" y="1078" w="24" h="24" skipable="false" stepLabel="a37" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=13;id=28; a37;),Step(type=2;id=2; a34;))" src="com.dec.avw.core.Step:__mobileCompany_1_13_28" dest="com.dec.avw.core.Step:__mobileCompany_1_2_2" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(4,Step(type=13;id=28; a37;),Step(type=2;id=22; a1000;))" src="com.dec.avw.core.Step:__mobileCompany_1_13_28" dest="com.dec.avw.core.Step:__mobileCompany_1_2_22" type="4" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=27; a20;),Step(type=13;id=28; a37;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_27" dest="com.dec.avw.core.Step:__mobileCompany_1_13_28" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=26; a19;),Step(type=20;id=27; a20;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_26" dest="com.dec.avw.core.Step:__mobileCompany_1_20_27" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=25; a18;),Step(type=20;id=26; a19;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_25" dest="com.dec.avw.core.Step:__mobileCompany_1_20_26" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=26; a19;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_26" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_feedbackNotes" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=43; a17;),Step(type=20;id=25; a18;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_43" dest="com.dec.avw.core.Step:__mobileCompany_1_20_25" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=25; a18;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_25" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_customPlanProposal" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=42; a16;),Step(type=20;id=43; a17;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_42" dest="com.dec.avw.core.Step:__mobileCompany_1_20_43" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=43; a17;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_43" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_customPlanProposal" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=41; a15;),Step(type=20;id=42; a16;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_41" dest="com.dec.avw.core.Step:__mobileCompany_1_20_42" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=40; a14;),Step(type=20;id=41; a15;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_40" dest="com.dec.avw.core.Step:__mobileCompany_1_20_41" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=41; a15;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_41" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_customPlanProposal" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=24; a13;),Step(type=20;id=40; a14;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_24" dest="com.dec.avw.core.Step:__mobileCompany_1_20_40" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=40; a14;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_40" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_incomingCustomerCall" pos="1" />
+<com.dec.avw.core.Flow toString="flow(1,Step(type=3;id=23; a3_0_2;),Step(type=20;id=24; a13;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_23" dest="com.dec.avw.core.Step:__mobileCompany_1_20_24" type="1" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=24; a13;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_24" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_incomingCustomerCall" pos="1" />
+<com.dec.avw.core.Flow toString="flow(2,Step(type=3;id=23; a3_0_2;),Step(type=2;id=22; a1000;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_23" dest="com.dec.avw.core.Step:__mobileCompany_1_2_22" type="2" xShift="1280" yShift="-1" />
+<com.dec.avw.core.Step toString="current plan is BillionaireUnlimited" oid="__mobileCompany_1_2_32" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="32" type="2" kind="0" activityName="current plan is BillionaireUnlimited" srcLine="0" x="1265" y="335" w="30" h="30" skipable="false" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=2;id=32;),Step(type=3;id=23; a3_0_2;))" src="com.dec.avw.core.Step:__mobileCompany_1_2_32" dest="com.dec.avw.core.Step:__mobileCompany_1_3_23" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a3_2 (check request)" oid="__mobileCompany_1_20_21" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="21" type="20" kind="0" activityName="check request" activity="com.dec.avw.core.Task:_manuel_1" srcLine="0" expression="manuel" x="1220" y="240" w="100" h="60" skipable="false" stepLabel="a3_2" />
+<com.dec.avw.core.AgentDescription toString="!beatrix" agentString="!beatrix" step="com.dec.avw.core.Step:__mobileCompany_1_20_21" pos="1" agent="com.dec.avw.core.User:_beatrix" type="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=21; a3_2;),Step(type=2;id=32;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_21" dest="com.dec.avw.core.Step:__mobileCompany_1_2_32" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a3_0_1 (current plan ?)" oid="__mobileCompany_1_3_33" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="33" type="3" kind="0" activityName="current plan ?" srcLine="0" x="675" y="255" w="30" h="30" skipable="false" stepLabel="a3_0_1" />
+<com.dec.avw.core.Flow toString="flow(1,Step(type=3;id=33; a3_0_1;),Step(type=20;id=21; a3_2;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_33" dest="com.dec.avw.core.Step:__mobileCompany_1_20_21" type="1" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Step toString="a35 (end)" oid="__mobileCompany_1_13_34" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" stepid="34" type="13" kind="0" activityName="end" srcLine="0" x="678" y="338" w="24" h="24" skipable="false" stepLabel="a35" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=13;id=34; a35;),Step(type=2;id=2; a34;))" src="com.dec.avw.core.Step:__mobileCompany_1_13_34" dest="com.dec.avw.core.Step:__mobileCompany_1_2_2" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(4,Step(type=13;id=34; a35;),Step(type=2;id=32;))" src="com.dec.avw.core.Step:__mobileCompany_1_13_34" dest="com.dec.avw.core.Step:__mobileCompany_1_2_32" type="4" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(2,Step(type=3;id=33; a3_0_1;),Step(type=13;id=34; a35;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_33" dest="com.dec.avw.core.Step:__mobileCompany_1_13_34" type="2" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(2,Step(type=3;id=6; a3_0;),Step(type=3;id=33; a3_0_1;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_6" dest="com.dec.avw.core.Step:__mobileCompany_1_3_33" type="2" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=19; a21;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_19" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_incomingCustomerCall" pos="1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=44; a22;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_44" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_incomingCustomerCall" pos="1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=45; a23;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_45" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_offerDraft" pos="1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=46; a24;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_46" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_offerDraft" pos="1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=47;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_47" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_offerDraft" pos="1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=48; a25;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_48" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_offerDraft" pos="1" />
+<com.dec.avw.core.Flow toString="flow(4,Step(type=13;id=53; a100;),Step(type=2;id=50; a1004;))" src="com.dec.avw.core.Step:__mobileCompany_1_13_53" dest="com.dec.avw.core.Step:__mobileCompany_1_2_50" type="4" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(1,Step(type=3;id=51; a1002;),Step(type=13;id=53; a100;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_51" dest="com.dec.avw.core.Step:__mobileCompany_1_13_53" type="1" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(2,Step(type=3;id=51; a1002;),Step(type=20;id=52; a26;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_51" dest="com.dec.avw.core.Step:__mobileCompany_1_20_52" type="2" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=52; a26;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_52" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_offerDraft" pos="1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=54; a27;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_54" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_offerDraft" pos="1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=56; a29;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_56" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_offerDraft" pos="1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=57; a30;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_57" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_offerDraft" pos="1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=59; a32;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_59" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_feedbackNotes" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=13;id=17; a36;),Step(type=2;id=2; a34;))" src="com.dec.avw.core.Step:__mobileCompany_1_13_17" dest="com.dec.avw.core.Step:__mobileCompany_1_2_2" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=16; a12;),Step(type=13;id=17; a36;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_16" dest="com.dec.avw.core.Step:__mobileCompany_1_13_17" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=38; a11;),Step(type=20;id=16; a12;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_38" dest="com.dec.avw.core.Step:__mobileCompany_1_20_16" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=16; a12;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_16" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_closeCallNotes" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=39; a10;),Step(type=20;id=38; a11;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_39" dest="com.dec.avw.core.Step:__mobileCompany_1_20_38" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=38; a11;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_38" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_closeCallNotes" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=37; a9;),Step(type=20;id=39; a10;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_37" dest="com.dec.avw.core.Step:__mobileCompany_1_20_39" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=39; a10;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_39" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_closeCallNotes" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=36; a8;),Step(type=20;id=37; a9;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_36" dest="com.dec.avw.core.Step:__mobileCompany_1_20_37" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=15; a7;),Step(type=20;id=36; a8;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_15" dest="com.dec.avw.core.Step:__mobileCompany_1_20_36" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=36; a8;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_36" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_closeCallNotes" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=13; a6;),Step(type=20;id=15; a7;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_13" dest="com.dec.avw.core.Step:__mobileCompany_1_20_15" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=15; a7;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_15" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_closeCallNotes" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=12; a5;),Step(type=20;id=13; a6;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_12" dest="com.dec.avw.core.Step:__mobileCompany_1_20_13" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=13; a6;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_13" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_closeCallNotes" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=10; a4;),Step(type=20;id=12; a5;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_10" dest="com.dec.avw.core.Step:__mobileCompany_1_20_12" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(1,Step(type=3;id=9; a3_1_1;),Step(type=20;id=10; a4;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_9" dest="com.dec.avw.core.Step:__mobileCompany_1_20_10" type="1" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=7; a3_1;),Step(type=3;id=9; a3_1_1;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_7" dest="com.dec.avw.core.Step:__mobileCompany_1_3_9" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(1,Step(type=3;id=6; a3_0;),Step(type=20;id=7; a3_1;))" src="com.dec.avw.core.Step:__mobileCompany_1_3_6" dest="com.dec.avw.core.Step:__mobileCompany_1_20_7" type="1" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=4; a3;),Step(type=3;id=6; a3_0;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_4" dest="com.dec.avw.core.Step:__mobileCompany_1_3_6" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=20;id=29; a2;),Step(type=20;id=4; a3;))" src="com.dec.avw.core.Step:__mobileCompany_1_20_29" dest="com.dec.avw.core.Step:__mobileCompany_1_20_4" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.StepForm toString="Step(type=20;id=4; a3;)1" step="com.dec.avw.core.Step:__mobileCompany_1_20_4" form="com.dec.avw.core.ActivityForm:__mobileCompany_1_incomingCustomerCall" pos="1" />
+<com.dec.avw.core.Flow toString="flow(0,Step(type=1;id=1; a1;),Step(type=20;id=29; a2;))" src="com.dec.avw.core.Step:__mobileCompany_1_1_1" dest="com.dec.avw.core.Step:__mobileCompany_1_20_29" type="0" xShift="-1" yShift="-1" />
+<com.dec.avw.core.Annotation toString="current Plan == BillionaireUnlimited" target="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" content="current Plan == BillionaireUnlimited" x="1165" y="175" width="170" height="30" />
+<com.dec.avw.core.Annotation toString="current Plan == CheapAndMeh" target="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" content="current Plan == CheapAndMeh" x="170" y="190" width="100" height="40" />
+<com.groiss.accesscontrol.StepPermission toString="steppermission(MobileCompany,Step(type=20;id=4; a3;),Create objects,)" process="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" step="com.dec.avw.core.Step:__mobileCompany_1_20_4" avwright="com.dec.avw.core.Right:61" target="com.groiss.forms.form_incomingCall_1:0" positive="true" />
+<com.dec.avw.acl.ACLEntry toString="All-View objects-MobileCompany" agent="com.dec.avw.core.Role:2" avwright="com.dec.avw.core.Right:6" target="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" objScope="3" orgScope="1" positive="true" ignoreSubst="false" isCurrent="1" />
+<com.dec.avw.acl.ACLEntry toString="All-View process instances-MobileCompany" agent="com.dec.avw.core.Role:2" avwright="com.dec.avw.core.Right:396" target="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" objScope="3" orgScope="1" positive="true" ignoreSubst="false" isCurrent="1" />
+<com.dec.avw.acl.ACLEntry toString="Beatrix Kiddo-Edit plan-MobileCompany" agent="com.dec.avw.core.User:_beatrix" avwright="com.dec.avw.core.Right:506" target="com.dec.avw.core.ProcessDefinition:_mobileCompany_1" objScope="3" orgScope="1" positive="true" ignoreSubst="false" isCurrent="1" />
+<com.dec.avw.core.FormClassContainer toString="FormClassContainer: Close Call Notes" formtype="com.dec.avw.core.FormType:_closeCallNotes_1" />
+<com.dec.avw.core.FormClassContainer toString="FormClassContainer: Custom Plan Proposal" formtype="com.dec.avw.core.FormType:_customPlanProposal_1" />
+<com.dec.avw.core.FormClassContainer toString="FormClassContainer: Feedback Notes" formtype="com.dec.avw.core.FormType:_feedbackNotes_1" />
+<com.dec.avw.core.FormClassContainer toString="FormClassContainer: Form Incoming Call" formtype="com.dec.avw.core.FormType:_form_incomingCall_1" />
+<com.dec.avw.core.FormClassContainer toString="FormClassContainer: incomingCustomerCall" formtype="com.dec.avw.core.FormType:_incomingCustomerCall_1" />
+<com.dec.avw.core.FormClassContainer toString="FormClassContainer: offerDraft" formtype="com.dec.avw.core.FormType:_offerDraft_1" />
+</body>
+</ep_export>

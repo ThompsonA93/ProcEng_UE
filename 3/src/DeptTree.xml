@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ep_export>
+<head>
+<content cluster="depttree_cluster" built="18-12-2022 10:01"/>
+<description>
+</description>
+<server name="epdemo" address="LAPTOP-V9QI6TRS" version="10.0.33564"/>
+<customer client="" exported_from="Larissa Krainer"/>
+</head>
+<body>
+<com.dec.avw.core.DeptTree toString="Child Department of Sales" oid="_childDept" id="childDept" name="Child Department of Sales" ep_export_log="true" />
+<com.dec.avw.core.Dept toString="Sales Department" oid="_sales" id="sales" name="Sales Department" description="sales dept. of the PE project" orgType="4" active="1" ep_export_log="true" />
+<com.dec.avw.core.Dept toString="Junior Sales Department" oid="_juniorSales" id="juniorSales" name="Junior Sales Department" orgType="4" active="1" ep_export_log="true" />
+<com.dec.avw.core.DeptHierarchy toString="Junior Sales Department -&gt; Sales Department" superDept="com.dec.avw.core.Dept:_sales" subDept="com.dec.avw.core.Dept:_juniorSales" application="com.dec.avw.core.DeptTree:_childDept" ep_export_log="true" />
+<com.dec.avw.core.DeptHierarchy toString="Sales Department -&gt; null" subDept="com.dec.avw.core.Dept:_sales" application="com.dec.avw.core.DeptTree:_childDept" ep_export_log="true" />
+<com.dec.avw.core.Dept toString="Senior Sales Department" oid="_seniorSales" id="seniorSales" name="Senior Sales Department" orgType="4" active="1" ep_export_log="true" />
+<com.dec.avw.core.DeptHierarchy toString="Senior Sales Department -&gt; Sales Department" superDept="com.dec.avw.core.Dept:_sales" subDept="com.dec.avw.core.Dept:_seniorSales" application="com.dec.avw.core.DeptTree:_childDept" ep_export_log="true" />
+</body>
+</ep_export>

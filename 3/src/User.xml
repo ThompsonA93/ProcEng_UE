@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ep_export>
+<head>
+<content cluster="user_cluster" built="18-12-2022 10:02"/>
+<description>
+</description>
+<server name="epdemo" address="LAPTOP-V9QI6TRS" version="10.0.33564"/>
+<customer client="" exported_from="Larissa Krainer"/>
+</head>
+<body>
+<RequiredObject reqobjclass="com.dec.avw.core.Server" toString="epdemo" oid="_epdemo" id="epdemo" />
+<com.dec.avw.core.User toString="Brody Marcus brody" oid="_brody" id="brody" firstName="Marcus" surname="Brody" description="Junior Sales department employee" algorithm="SHA" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" lastPwdChange="1671194138000" gender="1" server="com.dec.avw.core.Server:_epdemo" locale="de_AT" active="1" ep_export_log="true"><password2>cRDtpNCeBiql5KOQsKVyrA0sAiA=</password2></com.dec.avw.core.User>
+<RequiredObject reqobjclass="com.dec.avw.core.Dept" toString="Junior Sales Department" oid="_juniorSales" id="juniorSales" ep_export_log="true" />
+<com.dec.avw.core.UserRole toString="Organizational unit -&gt; Marcus Brody" dept="com.dec.avw.core.Dept:_juniorSales" role="com.dec.avw.core.Role:5" userid="com.dec.avw.core.User:_brody" active="1" ep_export_log="true" />
+<com.dec.avw.core.User toString="Guest guest" oid="393" id="guest" surname="Guest" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" gender="0" active="0" ep_export_log="true" />
+<com.dec.avw.core.User toString="Kiddo Beatrix beatrix" oid="_beatrix" id="beatrix" firstName="Beatrix" surname="Kiddo" description="Generic Helpdesk employee" algorithm="SHA" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" lastPwdChange="1671194075000" gender="2" server="com.dec.avw.core.Server:_epdemo" locale="de_AT" active="1" ep_export_log="true"><password2>cRDtpNCeBiql5KOQsKVyrA0sAiA=</password2></com.dec.avw.core.User>
+<RequiredObject reqobjclass="com.dec.avw.core.Dept" toString="Helpdesk" oid="_helpdesk" id="helpdesk" ep_export_log="true" />
+<com.dec.avw.core.UserRole toString="Home -&gt; Beatrix Kiddo" dept="com.dec.avw.core.Dept:_helpdesk" role="com.dec.avw.core.Role:3" userid="com.dec.avw.core.User:_beatrix" active="1" ep_export_log="true" />
+<com.dec.avw.core.UserProperty toString="mobileCompany_infopanewidth" userid="com.dec.avw.core.User:_beatrix" name="mobileCompany_infopanewidth" val="79px" />
+<com.dec.avw.core.UserProperty toString="report_standard_search_template_usage_history" userid="com.dec.avw.core.User:_beatrix" name="report_standard_search_template_usage_history" val="H4sIAAAAAAAAA12QzW7CMBCEXyXyOUgkCBDpkUNvvVD1glC02JvGrf/kddQixLvXxkFJua1nPntmfbwyBWdUrGGvSAF8wFB8WFNUm0VVL+plXb8UrGQCArKm2myr1Xq5Xm131a5kDjxoYs2VSdGGi4sEw1/gIV5w3nIpohBnGs5fz37SME4ZuAeLtvNWR2XKnnnBZraTRlI/wXPpwYgBU+EZ8lCeibFVaotEyUA3lUo7p3Eg9Hnig/doQpuV46lk4JySHIK0JiMB6Ps/nJUEp5wxMvry01iPe6B4NoNSMbO3P+9SY6aN3QPvE1wlmg46fgVXMr55QPC8H53Oes2tETKVoHw3aTTuKskpuLyBvufebqc/c6b6WfYBAAA=" />
+<com.dec.avw.core.UserProperty toString="standard.processStart_sort" userid="com.dec.avw.core.User:_beatrix" name="standard.processStart_sort" val="-name" />
+<com.dec.avw.core.UserProperty toString="standard.wl_order" userid="com.dec.avw.core.User:_beatrix" name="standard.wl_order" val="H4sIAAAAAAAAA4uOBQApu0wNAgAAAA==" />
+<com.dec.avw.acl.ACLEntry toString="Beatrix Kiddo-View objects-Processes" agent="com.dec.avw.core.User:_beatrix" avwright="com.dec.avw.core.Right:6" target="com.dec.avw.core.ProcessDefinition:0" objScope="2" orgScope="1" positive="true" ignoreSubst="false" isCurrent="1" />
+<com.dec.avw.core.User toString="Krainer Larissa lakrainer@edu.aau.at" oid="_lakrainer@edu.aau.at" id="lakrainer@edu.aau.at" firstName="Larissa" surname="Krainer" algorithm="SHA" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" lastPwdChange="1669963190000" gender="0" server="com.dec.avw.core.Server:_epdemo" locale="en_US" active="1" ep_export_log="true"><password2>cRDtpNCeBiql5KOQsKVyrA0sAiA=</password2></com.dec.avw.core.User>
+<com.dec.avw.core.UserRole toString="All -&gt; Larissa Krainer" role="com.dec.avw.core.Role:2" userid="com.dec.avw.core.User:_lakrainer@edu.aau.at" active="1" ep_export_log="true" />
+<RequiredObject reqobjclass="com.dec.avw.core.Dept" toString="larissa" oid="_PE" id="PE" ep_export_log="true" />
+<com.dec.avw.core.UserRole toString="Home -&gt; Larissa Krainer" dept="com.dec.avw.core.Dept:_PE" role="com.dec.avw.core.Role:3" userid="com.dec.avw.core.User:_lakrainer@edu.aau.at" active="1" ep_export_log="true" />
+<com.dec.avw.core.UserRole toString="Sys -&gt; Larissa Krainer" role="com.dec.avw.core.Role:4" userid="com.dec.avw.core.User:_lakrainer@edu.aau.at" active="1" ep_export_log="true" />
+<com.dec.avw.core.UserProperty toString="dms.show_hidden_docs" userid="com.dec.avw.core.User:_lakrainer@edu.aau.at" name="dms.show_hidden_docs" val="sysdef" />
+<com.dec.avw.core.UserProperty toString="locale" userid="com.dec.avw.core.User:_lakrainer@edu.aau.at" name="locale" val="en_US" />
+<com.dec.avw.core.UserProperty toString="mail.composew.mode" userid="com.dec.avw.core.User:_lakrainer@edu.aau.at" name="mail.composew.mode" val="html" />
+<com.dec.avw.core.UserProperty toString="pred.window.position" userid="com.dec.avw.core.User:_lakrainer@edu.aau.at" name="pred.window.position" val="-7:0" />
+<com.dec.avw.core.UserProperty toString="pred.window.size" userid="com.dec.avw.core.User:_lakrainer@edu.aau.at" name="pred.window.size" val="1920:923" />
+<com.dec.avw.core.UserProperty toString="standard.wl_order" userid="com.dec.avw.core.User:_lakrainer@edu.aau.at" name="standard.wl_order" val="H4sIAAAAAAAAA4uOBQApu0wNAgAAAA==" />
+<com.dec.avw.core.User toString="McFly Marty mcfly" oid="_mcfly" id="mcfly" firstName="Marty" surname="McFly" description="Generic Helpdesk employee" algorithm="SHA" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" lastPwdChange="1671194144000" gender="1" server="com.dec.avw.core.Server:_epdemo" locale="de_AT" active="1" ep_export_log="true"><password2>cRDtpNCeBiql5KOQsKVyrA0sAiA=</password2></com.dec.avw.core.User>
+<RequiredObject reqobjclass="com.dec.avw.core.Role" toString="docuwriter (Project Management)" oid="_pm_docuwriter" id="pm_docuwriter" ep_export_log="true" />
+<com.dec.avw.core.UserRole toString="docuwriter -&gt; Marty McFly" dept="com.dec.avw.core.Dept:_helpdesk" role="com.dec.avw.core.Role:_pm_docuwriter" userid="com.dec.avw.core.User:_mcfly" active="1" ep_export_log="true" />
+<com.dec.avw.core.User toString="nobody nobody" oid="15" id="nobody" surname="nobody" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" gender="0" active="0" ep_export_log="true" />
+<com.dec.avw.core.User toString="Pender Gil pender" oid="_pender" id="pender" firstName="Gil" surname="Pender" description="Senior Sales department employee" algorithm="SHA" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" lastPwdChange="1671194152000" gender="1" server="com.dec.avw.core.Server:_epdemo" locale="de_AT" active="1" ep_export_log="true"><password2>cRDtpNCeBiql5KOQsKVyrA0sAiA=</password2></com.dec.avw.core.User>
+<RequiredObject reqobjclass="com.dec.avw.core.Dept" toString="Senior Sales Department" oid="_seniorSales" id="seniorSales" ep_export_log="true" />
+<com.dec.avw.core.UserRole toString="Organizational unit -&gt; Gil Pender" dept="com.dec.avw.core.Dept:_seniorSales" role="com.dec.avw.core.Role:5" userid="com.dec.avw.core.User:_pender" active="1" ep_export_log="true" />
+<com.dec.avw.core.User toString="sysadm sysadm" oid="10" id="sysadm" surname="sysadm" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" gender="0" active="1" ep_export_log="true" />
+<com.dec.avw.core.UserRole toString="All -&gt; sysadm" oid="11" role="com.dec.avw.core.Role:2" userid="com.dec.avw.core.User:10" active="1" ep_export_log="true" />
+<com.dec.avw.core.UserRole toString="Sys -&gt; sysadm" oid="12" role="com.dec.avw.core.Role:4" userid="com.dec.avw.core.User:10" active="1" ep_export_log="true" />
+<com.dec.avw.core.User toString="Wallace Mia wallace" oid="_wallace" id="wallace" firstName="Mia" surname="Wallace" description="Senior Sales department employee" algorithm="SHA" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" lastPwdChange="1671194158000" gender="2" server="com.dec.avw.core.Server:_epdemo" locale="de_AT" active="1" ep_export_log="true"><password2>cRDtpNCeBiql5KOQsKVyrA0sAiA=</password2></com.dec.avw.core.User>
+<com.dec.avw.core.UserRole toString="Organizational unit -&gt; Mia Wallace" dept="com.dec.avw.core.Dept:_seniorSales" role="com.dec.avw.core.Role:5" userid="com.dec.avw.core.User:_wallace" active="1" ep_export_log="true" />
+<com.dec.avw.core.User toString="Wong Faye wong" oid="_wong" id="wong" firstName="Faye" surname="Wong" description="Junior Sales department employee" algorithm="SHA" cantChangePwd="false" pwdNeverExpires="false" changePwdNext="false" pwdExpMailSent="false" lastPwdChange="1671194163000" gender="2" server="com.dec.avw.core.Server:_epdemo" locale="de_AT" active="1" ep_export_log="true"><password2>cRDtpNCeBiql5KOQsKVyrA0sAiA=</password2></com.dec.avw.core.User>
+<com.dec.avw.core.UserRole toString="Organizational unit -&gt; Faye Wong" dept="com.dec.avw.core.Dept:_juniorSales" role="com.dec.avw.core.Role:5" userid="com.dec.avw.core.User:_wong" active="1" ep_export_log="true" />
+<com.dec.avw.core.UserProperty toString="standard.wl_order" userid="com.dec.avw.core.User:_wong" name="standard.wl_order" val="H4sIAAAAAAAAA4uOBQApu0wNAgAAAA==" />
+</body>
+</ep_export>

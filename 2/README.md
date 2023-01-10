@@ -8,13 +8,10 @@ Since the petri net is not bound, it is also not safe.
 
 The Petri Net is not conservative, since the number of tokens can grow unlimited.
 
-- T1 is L1-live
-- T3, T4 is L3-Live
-- T2 is special case
+The net is L3, but not L4 since there is a deadlock through T2
 
+T2 is the deadlock, hence it is a dead transaction
 
-## 2.6
 The net is not a workflow net, since there is no place where the last output token is put which has no further edges. (i.e. "endstate")
 
 # 3
-
